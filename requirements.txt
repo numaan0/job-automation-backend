@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic
+pydantic-settings
+
+# LangChain + Vertex AI
+langchain
+langchain-google-vertexai
+langchain-core
+
+# Optional (for future)
+# python-multipart  # For file uploads
+# sqlalchemy        # For database

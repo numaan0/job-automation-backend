@@ -1,0 +1,11 @@
+.env
+.job-automation-ai-5f3153e606b1.json
+.venv
+**/__pycache__/
+*.pyc
+job-auth-key.json
+setup.sh
+app/services/agent_service copy.py
+app/api/v1/routes copy.py
+app/services/agent_service_copy.py
+app/schemas/job copy.py
