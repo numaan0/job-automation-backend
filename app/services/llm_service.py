@@ -1,4 +1,5 @@
 from langchain_google_vertexai import ChatVertexAI
+from langchain_groq import ChatGroq
 from app.core.config import get_settings
 from google.cloud.aiplatform_v1beta1.types import Tool, GoogleSearchRetrieval
 
@@ -39,4 +40,16 @@ def get_llm(enable_grounding:bool =False)->ChatVertexAI:
         
     else:    
         return ChatVertexAI(**llm_params)
-    
+
+
+
+def get_llm_groq():
+    """
+    Return Groq-hosted Llama model for LangChain.
+    No grounding needed.
+    """
+    return ChatGroq(
+        groq_api_key=settings.GROQ_API_KEY,
+        model_name="llama-3.1-8b-instant",
+        temperature=settings.MODEL_TEMPERATURE
+    )    

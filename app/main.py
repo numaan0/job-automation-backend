@@ -1,17 +1,29 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
 from app.api.v1 import routes
+from app.database import engine, Base
 
 settings =  get_settings()
+
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: create tables asynchronously
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    yield
+
 
 app= FastAPI(
     title=settings.PROJECT_NAME,
     description="AI-Powered job applicatino assistant",
     version="1.0.0",
-    debug=settings.DEBUG
+    debug=settings.DEBUG,
+    lifespan=lifespan
 )
-
 app.add_middleware(
     CORSMiddleware,
      allow_origins=["*"], 
@@ -19,6 +31,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 # Include API routes
 app.include_router(routes.router,prefix=settings.API_V1_PREFIX,tags=["jobs"])
 
@@ -29,3 +43,4 @@ async def root():
         "message":"Job Application AI API",
         "version":"1.0.0"
     }
+    

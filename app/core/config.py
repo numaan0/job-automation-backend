@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     GOOGLE_CLOUD_REGION: str = "us-central1"
     GOOGLE_APPLICATION_CREDENTIALS: str = str(PROJECT_ROOT / "job-auth-key.json")
     
+    # Groq
+    GROQ_API_KEY:str
+    
+    TAVILY_API_KEY: str
+    
     # Model settings
     MODEL_NAME: str = "gemini-2.0-flash-exp"
     MODEL_TEMPERATURE: float = 0.3
